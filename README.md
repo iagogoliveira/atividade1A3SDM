@@ -44,3 +44,32 @@ Separar a API em camadas ajuda a deixar o código mais limpo, fácil de entender
 - **Manutenção fácil**: se der problema, é mais fácil achar e corrigir.
 - **Testes mais simples**: dá pra testar cada parte separada.
 - **Escalabilidade**: fica mais fácil crescer o projeto organizado.
+
+---
+
+# Configuração para rodar (Somente config do banco de dados)
+
+1. Instale o MySQL e crie o banco de dados:
+
+```sql
+CREATE DATABASE loja;
+```
+
+2. Crie as tabelas de cliente e produto:
+
+```sql
+CREATE TABLE produto (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100),
+  preco DECIMAL(10,2)
+);
+
+CREATE TABLE cliente (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100),
+  email VARCHAR(100)
+);
+```
+
+
+
