@@ -16,7 +16,9 @@ class ProdutoRepository {
   async update(id, produto) {
     return db("produto").where("id", id).update(produto)
   }
-
+  async partialUpdate(id, produto) {
+    return db("produto").where("id", id).update(produto)
+  }
   async delete(id) {
     return db("produto").where("id", id).delete()
   }

@@ -5,6 +5,7 @@ const ClienteController = {
   getAll: (req, res, next) => {
     ClienteService.findAll()
       .then(clientes => {
+        res.header("Cache-Control", "public, max-age=3600");
         res.send(clientes);
         next();
       })
@@ -15,6 +16,7 @@ const ClienteController = {
     ClienteService.findById(req.params.id)
       .then(cliente => {
         if (!cliente) return next(new errors.NotFoundError("Cliente não encontrado"));
+        res.header("Cache-Control", "public, max-age=3600");
         res.send(cliente);
         next();
       })
@@ -31,7 +33,28 @@ const ClienteController = {
   },
 
   update: (req, res, next) => {
+
+    const cliente = req.body;
+
+    const obrigatorios = ['nome', 'email']; 
+
+    const faltando = obrigatorios.filter(campo => !(campo in cliente) || cliente[campo] === '');
+
+    if (faltando.length > 0) {
+      return next(new errors.BadRequestError(`Campos obrigatórios faltando: ${faltando.join(', ')}`));
+    }
+    
     ClienteService.update(req.params.id, req.body)
+      .then(updated => {
+        if (!updated) return next(new errors.NotFoundError("Cliente não encontrado"));
+        res.send({ success: true });
+        next();
+      })
+      .catch(err => next(new errors.BadRequestError("Não foi possível atualizar o cliente")));
+  },
+
+  partialUpdate: (req, res, next) => {
+    ClienteService.partialUpdate(req.params.id, req.body)
       .then(updated => {
         if (!updated) return next(new errors.NotFoundError("Cliente não encontrado"));
         res.send({ success: true });

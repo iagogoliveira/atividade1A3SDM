@@ -17,6 +17,10 @@ class ClienteRepository {
     return db("cliente").where("id", id).update(cliente)
   }
 
+  async partialUpdate(id, cliente) {
+    return db("cliente").where("id", id).update(cliente)
+  }
+
   async delete(id) {
     return db("cliente").where("id", id).delete()
   }

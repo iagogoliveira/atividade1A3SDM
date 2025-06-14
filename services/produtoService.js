@@ -13,6 +13,9 @@ class ProdutoService {
   update(id, data) {
     return produtoRepo.update(id, data)
   }
+  partialUpdate(id, data) {
+    return produtoRepo.partialUpdate(id, data)
+  }
   delete(id) {
     return produtoRepo.delete(id)
   }

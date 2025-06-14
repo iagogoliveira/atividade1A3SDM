@@ -13,6 +13,9 @@ class ClienteService {
   update(id, data) {
     return clienteRepo.update(id, data)
   }
+  partialUpdate(id, data) {
+    return clienteRepo.partialUpdate(id, data)
+  }
   delete(id) {
     return clienteRepo.delete(id)
   }
